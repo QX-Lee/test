@@ -31,4 +31,11 @@ contract MetaCoin {
 	function getBalance(address addr) public view returns(uint) {
 		return balances[addr];
 	}
+
+	function burnCoin(uint amount) public returns(bool sufficient) {
+		if (balances[msg.sender] < amount) return false;
+		balances[msg.sender] -= amount;
+		emit Transfer(msg.sender, 0x0, amount);
+		return true;
+	}
 }
